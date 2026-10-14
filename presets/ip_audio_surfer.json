@@ -1,0 +1,20 @@
+{
+  "name": "IP专属-声波浪尖冲浪 (IP Audio Surfer)",
+  "id": "ip_audio_surfer",
+  "layout": {
+    "type": "ip_runner",
+    "base_style": "audio_waveform",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.038
+  },
+  "mascot_config": {
+    "target_height_px": 66,
+    "surf_mode": true,
+    "color": [
+      0,
+      240,
+      255,
+      255
+    ]
+  }
+}

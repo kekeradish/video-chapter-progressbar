@@ -1,0 +1,18 @@
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 临时视频与大型成片素材
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.tmp
+__temp_*
+
+# 操作系统与 IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

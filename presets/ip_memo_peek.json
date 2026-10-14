@@ -1,0 +1,14 @@
+{
+  "name": "IP专属-手账便签萌宠趴趴 (IP Memo Peek)",
+  "id": "ip_memo_peek",
+  "layout": {
+    "type": "ip_runner",
+    "base_style": "paper_index_tab",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.045
+  },
+  "mascot_config": {
+    "target_height_px": 68,
+    "peek_mode": true
+  }
+}

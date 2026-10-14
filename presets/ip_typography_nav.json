@@ -1,0 +1,15 @@
+{
+  "name": "IP专属-纯文字下划线领航 (IP Typography Navigator)",
+  "id": "ip_typography_nav",
+  "layout": {
+    "type": "ip_runner",
+    "base_style": "typography_underline",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.045
+  },
+  "mascot_config": {
+    "target_height_px": 66,
+    "bounce_amplitude": 3,
+    "bounce_freq": 6
+  }
+}

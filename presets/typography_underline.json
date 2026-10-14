@@ -1,0 +1,62 @@
+{
+  "name": "极简纯文字排版下划线 (Typography Underline)",
+  "id": "typography_underline",
+  "description": "无物理轨道槽，仅水平排布纯文字，当前小节加粗高亮并带有平滑延伸的暖金发光下划线",
+  "layout": {
+    "type": "typography_frameless",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.045,
+    "side_margin_ratio": 0.06
+  },
+  "typography": {
+    "font_family": "msyhbd.ttc",
+    "font_size_active_ratio": 0.018,
+    "font_size_inactive_ratio": 0.015,
+    "color_active": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "color_done": [
+      220,
+      220,
+      220,
+      180
+    ],
+    "color_inactive": [
+      150,
+      150,
+      160,
+      110
+    ]
+  },
+  "underline": {
+    "enabled": true,
+    "height_px": 3,
+    "color_active": [
+      255,
+      204,
+      0,
+      255
+    ],
+    "color_inactive": [
+      255,
+      255,
+      255,
+      45
+    ],
+    "glow_head": true
+  },
+  "backdrop_shadow": {
+    "enabled": true,
+    "height_px": 140,
+    "color": [
+      0,
+      0,
+      0,
+      140
+    ],
+    "power": 1.8
+  }
+}

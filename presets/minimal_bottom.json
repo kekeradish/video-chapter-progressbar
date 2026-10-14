@@ -1,0 +1,65 @@
+{
+  "name": "minimal_bottom",
+  "description": "纯底部极简分段进度条，紧贴底边，无遮挡，当前段与文字高亮",
+  "show_capsule": false,
+  "bar_height": 14,
+  "margin_bottom": 22,
+  "margin_x": 48,
+  "gap": 8,
+  "radius": 7,
+  "strip_height": 100,
+  "colors": {
+    "track_unplayed": [
+      255,
+      255,
+      255,
+      65
+    ],
+    "track_played": [
+      0,
+      216,
+      255,
+      245
+    ],
+    "track_active_fill": [
+      255,
+      184,
+      0,
+      255
+    ],
+    "track_active_bg": [
+      255,
+      255,
+      255,
+      110
+    ],
+    "text_active": [
+      255,
+      215,
+      0,
+      255
+    ],
+    "text_played": [
+      200,
+      240,
+      255,
+      210
+    ],
+    "text_unplayed": [
+      225,
+      230,
+      240,
+      160
+    ],
+    "shadow_base": [
+      8,
+      14,
+      24
+    ],
+    "shadow_max_alpha": 140
+  },
+  "font_sizes": {
+    "title_normal": 20,
+    "title_active": 22
+  }
+}

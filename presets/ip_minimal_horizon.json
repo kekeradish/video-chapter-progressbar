@@ -1,0 +1,17 @@
+{
+  "name": "IP专属-纯底地平线漫步 (IP Minimal Horizon)",
+  "id": "ip_minimal_horizon",
+  "layout": {
+    "type": "ip_runner",
+    "base_style": "minimal_bottom",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.042
+  },
+  "mascot_config": {
+    "target_height_px": 68,
+    "bounce_amplitude": 3,
+    "bounce_freq": 6,
+    "shadow": true,
+    "glow": true
+  }
+}

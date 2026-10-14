@@ -1,0 +1,74 @@
+{
+  "name": "黑胶唱片微播放器 (Vinyl Record Deck)",
+  "id": "vinyl_deck",
+  "description": "左下角旋转黑胶密纹唱片，带有唱针、章节名称与橙色微型发光进度线，适合音乐、生活Vlog与慢节奏视频",
+  "layout": {
+    "type": "floating_card",
+    "position": "bottom_left",
+    "width_px": 580,
+    "height_px": 100,
+    "margin_left_ratio": 0.024,
+    "margin_bottom_ratio": 0.04
+  },
+  "vinyl": {
+    "radius_px": 38,
+    "center_color": [
+      255,
+      120,
+      40,
+      255
+    ],
+    "body_color": [
+      10,
+      10,
+      10,
+      255
+    ],
+    "groove_color": [
+      35,
+      35,
+      35,
+      255
+    ],
+    "rotate_speed_dps": 36
+  },
+  "needle": {
+    "enabled": true,
+    "color": [
+      220,
+      220,
+      220,
+      255
+    ]
+  },
+  "progress": {
+    "color_active": [
+      255,
+      120,
+      40,
+      255
+    ],
+    "color_inactive": [
+      255,
+      255,
+      255,
+      40
+    ],
+    "dot_head": true
+  },
+  "card_bg": {
+    "color": [
+      18,
+      20,
+      24,
+      230
+    ],
+    "border_color": [
+      255,
+      255,
+      255,
+      35
+    ],
+    "radius_px": 16
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "name": "cyberpunk",
+  "description": "赛博朋克霓虹荧光粉青风格",
+  "show_capsule": false,
+  "bar_height": 16,
+  "margin_bottom": 20,
+  "margin_x": 40,
+  "gap": 10,
+  "radius": 4,
+  "strip_height": 110,
+  "colors": {
+    "track_unplayed": [
+      40,
+      20,
+      60,
+      120
+    ],
+    "track_played": [
+      0,
+      240,
+      255,
+      250
+    ],
+    "track_active_fill": [
+      255,
+      0,
+      128,
+      255
+    ],
+    "track_active_bg": [
+      100,
+      30,
+      80,
+      150
+    ],
+    "text_active": [
+      255,
+      0,
+      128,
+      255
+    ],
+    "text_played": [
+      0,
+      240,
+      255,
+      220
+    ],
+    "text_unplayed": [
+      160,
+      140,
+      190,
+      150
+    ],
+    "shadow_base": [
+      10,
+      5,
+      20
+    ],
+    "shadow_max_alpha": 160
+  },
+  "font_sizes": {
+    "title_normal": 20,
+    "title_active": 23
+  }
+}

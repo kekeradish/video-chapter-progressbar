@@ -1,0 +1,111 @@
+{
+  "name": "capsule_details",
+  "description": "带悬浮章节胶囊卡片与动态走秒详情版",
+  "show_capsule": true,
+  "bar_height": 14,
+  "margin_bottom": 24,
+  "margin_x": 48,
+  "gap": 8,
+  "radius": 7,
+  "strip_height": 180,
+  "colors": {
+    "track_unplayed": [
+      255,
+      255,
+      255,
+      65
+    ],
+    "track_played": [
+      0,
+      216,
+      255,
+      245
+    ],
+    "track_active_fill": [
+      255,
+      184,
+      0,
+      255
+    ],
+    "track_active_bg": [
+      255,
+      255,
+      255,
+      110
+    ],
+    "text_active": [
+      255,
+      210,
+      50,
+      255
+    ],
+    "text_played": [
+      210,
+      240,
+      255,
+      200
+    ],
+    "text_unplayed": [
+      220,
+      225,
+      235,
+      160
+    ],
+    "capsule_bg": [
+      12,
+      18,
+      32,
+      235
+    ],
+    "capsule_border": [
+      0,
+      216,
+      255,
+      190
+    ],
+    "badge_bg": [
+      0,
+      216,
+      255,
+      240
+    ],
+    "badge_text": [
+      10,
+      16,
+      28,
+      255
+    ],
+    "capsule_title": [
+      255,
+      255,
+      255,
+      255
+    ],
+    "capsule_desc": [
+      175,
+      210,
+      245,
+      220
+    ],
+    "capsule_time": [
+      0,
+      216,
+      255,
+      255
+    ],
+    "shadow_base": [
+      8,
+      14,
+      24
+    ],
+    "shadow_max_alpha": 150
+  },
+  "font_sizes": {
+    "title_normal": 19,
+    "title_active": 20,
+    "badge": 28,
+    "capsule_title": 32,
+    "capsule_desc": 24,
+    "capsule_time": 28
+  }
+}

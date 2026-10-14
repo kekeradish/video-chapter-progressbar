@@ -1,0 +1,64 @@
+{
+  "name": "纸质手账便利贴书签 (Paper Index Tab)",
+  "id": "paper_index_tab",
+  "description": "底部排布彩色便利贴/标签纸，当前小节标签向上弹起并带图钉红点标记，适合手账、开箱、读书与治愈系视频",
+  "layout": {
+    "type": "index_tabs",
+    "position": "bottom",
+    "tab_height_px": 55,
+    "active_lift_px": 10,
+    "margin_bottom_ratio": 0.045,
+    "side_margin_ratio": 0.04
+  },
+  "palette": [
+    [
+      240,
+      230,
+      210
+    ],
+    [
+      255,
+      225,
+      120
+    ],
+    [
+      200,
+      230,
+      220
+    ],
+    [
+      220,
+      210,
+      235
+    ],
+    [
+      240,
+      210,
+      210
+    ]
+  ],
+  "pin_indicator": {
+    "enabled": true,
+    "color": [
+      255,
+      75,
+      43,
+      255
+    ]
+  },
+  "typography": {
+    "font_family": "msyhbd.ttc",
+    "color_active": [
+      10,
+      10,
+      10,
+      255
+    ],
+    "color_inactive": [
+      60,
+      60,
+      60,
+      200
+    ]
+  }
+}

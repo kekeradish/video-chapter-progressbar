@@ -1,0 +1,20 @@
+{
+  "name": "IP专属-赛博霓虹跑道 (IP Cyber Runner)",
+  "id": "ip_cyber_runner",
+  "layout": {
+    "type": "ip_runner",
+    "base_style": "cyberpunk",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.042
+  },
+  "mascot_config": {
+    "target_height_px": 68,
+    "jet_trail": true,
+    "trail_color": [
+      255,
+      0,
+      160,
+      200
+    ]
+  }
+}

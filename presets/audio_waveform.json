@@ -1,0 +1,62 @@
+{
+  "name": "人声音频波形条 (Audio Waveform Spectrum)",
+  "id": "audio_waveform",
+  "description": "进度条本体由人声音频柱构成，随说话声起伏跳动，已播放高亮青蓝，未播放暗灰，光标圆点实时推进",
+  "layout": {
+    "type": "waveform_spectrum",
+    "position": "bottom",
+    "margin_bottom_ratio": 0.035,
+    "side_margin_ratio": 0.05
+  },
+  "spectrum": {
+    "num_bars": 140,
+    "bar_width": 3,
+    "max_height_px": 36,
+    "color_played": [
+      0,
+      240,
+      255,
+      255
+    ],
+    "color_unplayed": [
+      80,
+      110,
+      130,
+      100
+    ],
+    "color_cursor": [
+      255,
+      255,
+      255,
+      255
+    ]
+  },
+  "typography": {
+    "font_family": "msyhbd.ttc",
+    "font_size_active_ratio": 0.016,
+    "font_size_inactive_ratio": 0.013,
+    "color_active": [
+      0,
+      240,
+      255,
+      255
+    ],
+    "color_inactive": [
+      180,
+      200,
+      210,
+      140
+    ]
+  },
+  "backdrop_shadow": {
+    "enabled": true,
+    "height_px": 160,
+    "color": [
+      5,
+      10,
+      15,
+      160
+    ],
+    "power": 1.8
+  }
+}
