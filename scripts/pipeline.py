@@ -20,7 +20,7 @@ def run_progressbar_pipeline(
     srt_path=None,
     manual_chapters=None,
     preset_name="minimal_bottom",
-    position="bottom",
+    position="auto",
     mascot_path=None,
     output_mov=None,
     output_mp4=None,
@@ -41,6 +41,32 @@ def run_progressbar_pipeline(
 
     video_dir = os.path.dirname(os.path.abspath(video_path))
     video_name = os.path.splitext(os.path.basename(video_path))[0]
+
+    # 智能推断 1: 自动判断横竖屏与布局位置 (Top/Bottom)
+    if not position or position == "auto":
+        if height > width:
+            position = "top"
+            print("💡 智能感知: 检测到竖屏视频 (9:16)，自动推荐并启用【顶部防遮挡布局】！", flush=True)
+        else:
+            position = "bottom"
+            print("💡 智能感知: 检测到横屏视频 (16:9)，自动启用【底部经典沉浸布局】！", flush=True)
+
+    # 智能推断 2: 自动寻找同级目录同名字幕文件
+    if not manual_chapters and not srt_path:
+        auto_srt = os.path.join(video_dir, f"{video_name}.srt")
+        if os.path.exists(auto_srt):
+            srt_path = auto_srt
+            print(f"💡 智能感知: 自动挂载同级同名字幕文件 -> {srt_path}", flush=True)
+
+    # 智能推断 3: 自动寻找同级目录 IP 角色图片
+    if not mascot_path:
+        for possible_mascot in ["mascot.png", "avatar.png", "ip.png", f"{video_name}_mascot.png"]:
+            cand = os.path.join(video_dir, possible_mascot)
+            if os.path.exists(cand):
+                mascot_path = cand
+                print(f"💡 智能感知: 自动识别到 IP 随动角色素材 -> {mascot_path}", flush=True)
+                break
+
     pos_tag = f"_{position}" if position == "top" else ""
     if not output_mov:
         output_mov = os.path.join(video_dir, f"{video_name}_{preset_name}{pos_tag}_透明素材.mov")
@@ -50,7 +76,7 @@ def run_progressbar_pipeline(
     # 章节数据获取
     chapters = []
     if manual_chapters:
-        print("模式: 显式手工章节解析...", flush=True)
+        print("模式: 显式手工/Agent 语义章节解析...", flush=True)
         chapters = parse_manual_timestamps(manual_chapters, duration)
     elif srt_path and os.path.exists(srt_path):
         print(f"模式: 读取外挂字幕文件 ({srt_path})...", flush=True)
@@ -132,7 +158,7 @@ if __name__ == "__main__":
     parser.add_argument("-s", "--srt", default=None, help="外挂字幕文件路径 (.srt)")
     parser.add_argument("-c", "--chapters", default=None, help="手工章节文本")
     parser.add_argument("-p", "--preset", default="minimal_bottom", help="预设主题")
-    parser.add_argument("-pos", "--position", default="bottom", choices=["bottom", "top"], help="显示位置: bottom(底部) 或 top(顶部)")
+    parser.add_argument("-pos", "--position", default="auto", choices=["auto", "bottom", "top"], help="显示位置: auto(智能推断横竖屏), bottom(底部), top(顶部)")
     parser.add_argument("-m", "--mascot", default=None, help="自定义吉祥物/IP透明PNG图片路径")
     parser.add_argument("-n", "--num_chapters", type=int, default=None, help="期望目标章节数")
     parser.add_argument("-o", "--output_mov", default=None, help="输出透明MOV路径")

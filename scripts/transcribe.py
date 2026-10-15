@@ -38,7 +38,7 @@ def extract_audio_from_video(video_path, temp_audio_path):
     return temp_audio_path
 
 def transcribe_audio_whisper(audio_path, model_name="tiny", language="zh"):
-    """使用本地 Whisper 快速转录音频，返回带有 start, end, text 的片段列表"""
+    """使用本地 Whisper 快速转录音频，返回带有 start, end, text 的片段列表（可选脱机插件）"""
     try:
         from faster_whisper import WhisperModel
         model = WhisperModel(model_name, device="cpu", compute_type="int8")
@@ -48,6 +48,9 @@ def transcribe_audio_whisper(audio_path, model_name="tiny", language="zh"):
             result.append({"start": s.start, "end": s.end, "text": s.text.strip()})
         return result
     except ImportError:
+        pass
+
+    try:
         import whisper
         model = whisper.load_model(model_name)
         res = model.transcribe(audio_path, language=language)
@@ -55,6 +58,13 @@ def transcribe_audio_whisper(audio_path, model_name="tiny", language="zh"):
         for s in res.get("segments", []):
             result.append({"start": float(s["start"]), "end": float(s["end"]), "text": s["text"].strip()})
         return result
+    except ImportError:
+        raise RuntimeError(
+            "【提示】未检测到本地 Whisper 模型。\n"
+            "💡 最优方案：推荐直接由 AI Agent 多模态理解视频提取章节，并通过 -c '00:00 标题1 01:20 标题2' 参数传入（秒级渲染、零依赖！）；\n"
+            "💡 或在视频同目录下放置同名 .srt 字幕文件；\n"
+            "💡 若确需本地离线语音听写，可单独运行：pip install faster-whisper"
+        )
 
 def parse_srt_file(srt_path):
     """解析 .srt 字幕文件提取时间戳与文本"""

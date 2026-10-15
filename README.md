@@ -12,12 +12,12 @@
 
 ## ✨ 核心特性
 
-- ⚡ **零环境配置门槛（Zero-Config）**：内置自动探测与自包含 FFmpeg 引擎，其他 Agent 或开发者无需手动配置系统环境变量，`pip install` 即可直接运行！
+- ⚡ **零环境配置门槛（Zero-Config）**：内置自包含 FFmpeg 引擎，依赖仅 **30MB**（已移除沉重的 PyTorch/Whisper），其他 Agent 或普通用户无需配置系统环境变量，3 秒完成安装！
+- 🧠 **Agent 多模态直通**：支持大语言模型直接多模态读取视频或文案并提取章节，通过 `-c` 参数秒级灌入，零外部模型推理耗时！
 - 🚀 **160+ FPS 极速条带渲染**：攻克 2K/4K 逐帧渲染缓慢痛点，采用局部条带内存加速算法，3 分钟 2K 视频仅需 30 秒导出！
 - 💎 **原生 32-bit RGBA 透明通道**：输出 Apple QuickTime RLE (`qtrle`) 格式，直接拖入剪映即可完美透明叠加，零色差、零遮挡。
-- 🤖 **AI 语义动态分段大脑**：双模输入支持——既能跑 Whisper 离线语音识别听出停顿转折，也能外挂 `.srt` 字幕；根据真实内容自适应切分，绝不写死模板。
+- 🤖 **智能情境推断 (Auto-Infer)**：输入视频自动识别横竖屏（9:16 自动切顶部防遮挡，16:9 自动切底部经典）；自动识别同级 `.srt` 字幕与 IP 角色素材。
 - 🚶 **自定义 IP 角色随动领航**：支持任意上传透明 PNG 角色/宠物，角色脚踩轨道向前漫步，自带自然步态呼吸颠簸动效。
-- ↕️ **短视频顶部防遮挡 (Top/Bottom 双布局)**：横屏视频放底部经典沉浸；抖音/短视频一键切换放顶部，完美避开双语字幕、文案、点赞侧边栏！
 - 🎨 **12 大预设样式库**：涵盖纯底极简、纯文字无框、人声跳动波形、复古黑胶、手账便签、赛博朋克与 5 大 IP 专属跑道。
 
 ---
@@ -34,8 +34,8 @@
 
 ## 📦 安装与环境要求
 
-### 1. 零配置极速安装（Zero-Config）
-> 💡 **无需手动配置 FFmpeg 系统变量**：本项目内置自适应探测器，依赖库自动携带跨平台静态编译的独立 FFmpeg 二进制，所有 Agent 与普通用户均可无感开箱即用！
+### 1. 30MB 极轻极速安装（Zero-Config）
+> 💡 **无需手动配置 FFmpeg 系统变量，无需下载 2GB PyTorch**：本项目内置自适应探测器，依赖仅 30MB，秒装即用！
 
 ```bash
 git clone https://github.com/kekeradish/video-chapter-progressbar.git
@@ -47,14 +47,20 @@ pip install -r requirements.txt
 
 ## ⚡ 快速上手
 
-### 1. 基础用法：输入视频，输出透明 MOV
+### 1. 极简用法：输入视频，全自动智能识别与生成
 ```bash
-python scripts/pipeline.py -i "input_video.mp4" -o "output_progress.mov"
+# 自动识别横竖屏决定顶部/底部布局，自动探测同级字幕与IP角色
+python scripts/pipeline.py -i "input_video.mp4"
 ```
 
-### 2. 抖音/短视频模式：放在顶部防遮挡
+### 2. Agent 多模态直传章节（推荐，0 秒等待直接渲染）
 ```bash
-python scripts/pipeline.py -i "input_video.mp4" -pos top
+python scripts/pipeline.py -i "input_video.mp4" -c "00:00 开篇 01:20 核心实测 02:40 总结"
+```
+
+### 3. 一键压制成品 MP4 视频
+```bash
+python scripts/pipeline.py -i "input_video.mp4" -c "00:00 简介 01:20 实测" --composite
 ```
 
 ### 3. IP 专属模式：带上你的自定义角色向前漫步

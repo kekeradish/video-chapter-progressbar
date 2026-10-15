@@ -1,75 +1,82 @@
 ---
 name: video-chapter-progressbar
-description: 视频自动分段动态进度条生成器。自动根据视频语音或字幕智能划分章节，进行时间轴空间几何建模，并渲染导出带有原生 Alpha 透明通道的 QuickTime MOV 视频素材，可无缝直接拖入剪映、Premiere、Final Cut Pro 使用。
+description: 视频自动分段动态进度条生成器。结合 AI Agent 多模态理解或字幕智能划分章节，进行时间轴空间几何建模，并渲染导出带有原生 Alpha 透明通道的 QuickTime MOV 视频素材，可无缝直接拖入剪映、Premiere、Final Cut Pro 使用，或一键合成压制成片。
 ---
 
 # 视频自动分段动态进度条生成器 (Video Chapter Progress Bar)
 
-本技能用于为自媒体视频、教学课程、游戏推荐、数码评测等视频，自动生成**按实际内容比例分段、实时平滑推进高亮、且带各章节标题指示**的专业级底部动态进度条。
+本技能用于为自媒体视频、教学课程、游戏推荐、数码评测等视频，自动生成**按实际内容比例分段、实时平滑推进高亮、且带各章节标题指示**的专业级动态进度条。
 
-## 核心特性
-1. **多模态输入自适应**：
-   - **纯视频/音频**：自动调用轻量 Whisper 毫秒级语音识别，智能提取转折词与内容亮点；
-   - **外挂字幕 (.srt / .vtt)**：秒级免推理直接读取字幕时间戳与文案；
-   - **手工/半自动指定**：支持用户直接提供章节时间点文本（如 `00:00 开篇, 01:20 火箭筒`）。
-2. **章节数量与粒度自适应**：
-   - 彻底告别死板的固定分段，根据视频时长与语义自然转折动态划分（短视频 2~3 段，长视频 5~10 段）；
-   - 支持通过 `-n / --num_chapters` 手动指定目标章节数。
-3. **空间几何防挤占算法**：
-   - 支持任意分辨率（横屏 1080P/2K/4K，竖屏 9:16 抖音小红书）；
-   - 针对超短段落（如 3 秒问候）内置文字自适应折叠机制，确保文字 100% 永不挤占重叠。
-4. **剪映原生即用（零门槛对齐）**：
-   - 输出原生带 32-bit RGBA Alpha 透明通道的 QuickTime `.mov` 素材；
-   - 拖入剪映主视频上层轨道自动 1:1 吸附对齐，无需抠像、无需手动调位置。
+## 🌟 核心特性与架构升级
+1. **Agent 多模态直通（Zero-Heavy-AI）**：
+   - AI Agent 可直接多模态读取视频或文案提炼章节，通过 `-c` 参数秒级灌入；
+   - 彻底移除了庞大缓慢的本地 Whisper/PyTorch 依赖，核心运行包仅 **30MB**，几秒安装完成！
+2. **两处关键人机协同确认节点（Human-in-the-Loop）**：
+   - **确认点 1（生成前）**：Agent 提炼章节与判定布局（横屏底部 / 竖屏顶部防遮挡）后，先向用户确认章节标题与时间分配；
+   - **确认点 2（生成后）**：MOV 渲染完成后，主动询问用户“保留透明 MOV 拖入剪映剪辑”还是“直接压制合成原画成片 MP4”。
+3. **空间几何防挤占与智能推断**：
+   - 自动检测横竖屏：竖屏（9:16）自动启用顶部防遮挡，横屏（16:9）自动启用底部沉浸；
+   - 针对超短段落内置文字自适应折叠机制，确保文字 100% 永不挤占重叠。
+4. **剪映原生即用（1:1 吸附）**：
+   - 输出原生带 32-bit RGBA Alpha 透明通道的 QuickTime `.mov` 素材，拖入剪映直接对齐。
 
 ---
 
-## 触发场景与意图识别
-当用户提到以下需求时自动激活本技能：
-- “给这个视频下面加个动态进度条”
-- “做个分段进度条，标出每个时间段讲了什么”
-- “视频底部加个章节指示条”
-- “生成剪映可用的透明进度条素材”
-- “根据字幕自动做个视频进度条”
+## 🤖 AI Agent 最佳协同交互规范（重要执行流程）
 
----
-
-## 执行流水线工作流 (Workflow)
+当用户需要制作视频进度条时，Agent 应严格遵循以下四步标准流程：
 
 ```mermaid
-flowchart LR
-    A[输入: MP4视频 / 字幕] --> B[scripts/transcribe.py<br/>音轨提取与多模态解析]
-    B --> C[scripts/chapter_segmenter.py<br/>语义章节聚类与标题提炼]
-    C --> D[scripts/geometry.py<br/>时间轴空间几何映射]
-    D --> E[scripts/renderer.py + encoder.py<br/>局部条带加速与透明编码]
-    E --> F[输出: 原生透明MOV素材 / 合成MP4]
+flowchart TD
+    Step1[1. 多模态理解视频/提取文案] --> Step2[2. 拟定章节 & 智能匹配横竖屏布局]
+    Step2 --> Confirm1{【确认点 1】向用户展示章节与布局<br/>请用户确认或微调?}
+    Confirm1 -- 用户确认 --> Step3[3. 执行 pipeline.py 快速渲染透明 MOV]
+    Step3 --> Confirm2{【确认点 2】询问交付方式:<br/>A. 仅保留透明 MOV (导入剪映)<br/>B. 直接合成压制原画 MP4?}
+    Confirm2 -- 选 A --> EndA[交付 MOV 文件路径与剪映拖入指引]
+    Confirm2 -- 选 B --> EndB[调用 --composite 生成原画成片 MP4]
 ```
 
-### 快速调用命令示例
+### 1. 确认点 1 示例回复话术：
+> “我已经分析了您的视频，并为您设计了进度条方案：  
+> - **布局位置**：检测到视频为竖屏（9:16），自动推荐并启用【顶部防遮挡布局】（避开底部字幕与文案）。  
+> - **规划章节**：  
+>   1. `00:00` 痛点揭秘  
+>   2. `00:45` 核心功能实测  
+>   3. `01:30` 避坑指南与总结  
+> **请问是否按此章节与布局开始渲染？或者您需要微调某些标题？**”
 
-#### 1. 默认极简纯净版（全自动提取 + 导出透明素材）
+### 2. 确认点 2 示例回复话术：
+> “🎉 进度条透明素材已极速渲染完成：`video_minimal_bottom_透明素材.mov`！  
+> **请问您希望：**  
+> 🅰️ **仅保留透明 MOV 素材**（可直接拖入剪映/Premiere/FCP 轨道上方，原生 Alpha 透明）  
+> 🅱️ **由我直接合成到原视频中**（直接为您压制输出包含进度条的高清成品 MP4 视频）？”
+
+---
+
+## ⚡ 命令行调用速查
+
+### 1. Agent 多模态直传章节（推荐，0 依赖秒跑）
 ```bash
-python .agents/skills/video-chapter-progressbar/scripts/pipeline.py -i "D:/视频/评测.mp4"
+python scripts/pipeline.py -i "video.mp4" -c "00:00 开篇 01:20 核心实测 02:40 总结"
 ```
 
-#### 2. 外挂字幕文件加速模式（免语音识别耗时）
+### 2. 自动读取同名字幕或手工外挂字幕
 ```bash
-python .agents/skills/video-chapter-progressbar/scripts/pipeline.py -i "D:/视频/评测.mp4" -s "D:/视频/评测.srt"
+python scripts/pipeline.py -i "video.mp4" -s "video.srt"
 ```
 
-#### 3. 指定样式预设与章节数量
+### 3. 一键直接压制出合成视频成片
 ```bash
-python .agents/skills/video-chapter-progressbar/scripts/pipeline.py -i "D:/视频/评测.mp4" -p capsule_details -n 5
-```
-
-#### 4. 一键直接合成原画成片
-```bash
-python .agents/skills/video-chapter-progressbar/scripts/pipeline.py -i "D:/视频/评测.mp4" --composite
+python scripts/pipeline.py -i "video.mp4" -c "00:00 简介 01:30 实测" --composite
 ```
 
 ---
 
-## 预设主题库 (Presets)
-- `minimal_bottom`（默认）：纯底部极简分段进度条，紧贴底边，无大遮挡，当前段暖金色平滑推进，文字高亮金色。
-- `capsule_details`：左侧带磨砂悬浮胶囊卡片，显示章节大标题、功能特性、动态走秒时间戳。
-- `cyberpunk`：赛博朋克霓虹荧光风格，粉青撞色，适合电竞与潮酷风格。
+## 🎨 预设主题库 (Presets)
+- `minimal_bottom`（默认）：纯底极简分段进度条，暖金色平滑推进。
+- `typography_underline`：纯文字下划线充能，Apple 级无框排版。
+- `audio_waveform`：人声音频跳动波形。
+- `vinyl_deck`：复古黑胶唱片走秒微播放器。
+- `paper_index_tab`：纸质手账便签标签。
+- `ip_minimal_horizon`：IP 角色脚踩细线漫步。
+
