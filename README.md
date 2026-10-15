@@ -100,21 +100,92 @@ python scripts/pipeline.py -i "input_video.mp4" -s "subtitle.srt"
 
 ---
 
-## 🎨 样式预设库 (Presets)
+---
 
-| 预设 ID | 风格名称 | 特点与适用场景 |
-| :--- | :--- | :--- |
-| `minimal_bottom` | **纯底极简经典** | 暖金充能推进、沉浸无遮挡，全场景百搭 |
-| `typography_underline` | **纯文字下划线** | 样式 E：Apple 级无框排版，发光下划线充能 |
-| `audio_waveform` | **人声音频波形条** | 随说话起伏跳动的真实声波频谱，科技感十足 |
-| `vinyl_deck` | **黑胶唱片微播放器** | 拟物自转黑胶唱片、金属唱针走秒，生活 Vlog 质感 |
-| `paper_index_tab` | **纸质手账便签** | 彩色便签纸标签，当前段落弹起图钉标记 |
-| `ip_minimal_horizon` | **IP 专属-地平线漫步** | 角色脚踩金色细线迈步前进，带自然颠簸步态 |
-| `ip_audio_surfer` | **IP 专属-声波浪尖冲浪** | 角色踩在跳动的音频波形浪尖上向前冲浪 |
-| `ip_cyber_runner` | **IP 专属-赛博霓虹跑道** | 青粉荧光双轨，角色脚底带发光喷气拖尾 |
+## 🎨 样式预设视觉画廊 (Preset Gallery)
+
+系统内置 12 款针对不同视频题材与审美的预设样式，均已完成 2K 级实景调优：
+
+### 🏛️ 系列一：极简与现代无框 (Modern & Minimalist)
+*适合数码科技评测、教程、商业宣讲与高端纪录片*
+
+#### 1. 纯底极简经典 (`minimal_bottom`)
+> 暖金充能推进、沉浸无遮挡，全场景百搭无压力。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p minimal_bottom`
+![纯底极简经典效果](assets/presets/minimal_bottom.jpg)
+
+#### 2. 纯文字下划线充能 (`typography_underline`)
+> Apple 级无框排版美学，文字下方细线平滑充能，极具呼吸感。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p typography_underline`
+![纯文字下划线效果](assets/presets/typography_underline.jpg)
+
+#### 3. 悬浮胶囊卡片 (`capsule_details`)
+> 磨砂毛玻璃悬浮卡片，动态走秒时间戳与章节特性高亮。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p capsule_details`
+![悬浮胶囊卡片效果](assets/presets/capsule_details.jpg)
+
+---
+
+### 🎨 系列二：特色质感与创意视觉 (Creative & Retro)
+*适合播客长视频、生活 Vlog、音乐分享与游戏解说*
+
+#### 4. 人声音频波形条 (`audio_waveform`)
+> 真实声波频谱柱，随说话人声音起伏律动跳跃，科技与视觉冲击力拉满。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p audio_waveform`
+![人声音频波形条效果](assets/presets/audio_waveform.jpg)
+
+#### 5. 复古黑胶唱片微播放器 (`vinyl_deck`)
+> 拟物自转黑胶唱片、金属走秒唱针、复古橙红进度条，生活 Vlog 与音乐慢视频绝配。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p vinyl_deck`
+![复古黑胶唱片效果](assets/presets/vinyl_deck.jpg)
+
+#### 6. 纸质手账便签 (`paper_index_tab`)
+> 彩色手账便签纸标签，当前章节自动弹起图钉标记，文艺质感十足。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p paper_index_tab`
+![纸质手账便签效果](assets/presets/paper_index_tab.jpg)
+
+#### 7. 赛博霓虹双轨 (`cyberpunk`)
+> 粉青荧光高能撞色双轨，适合电竞比赛、潮流集锦与炫酷短视频。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p cyberpunk`
+![赛博霓虹双轨效果](assets/presets/cyberpunk.jpg)
+
+---
+
+### 🚶 系列三：自定义 IP 随动领航跑道 (Custom Mascot Runners)
+*支持任意上传透明 PNG 角色/宠物，角色脚踩轨道向前漫步，自带自然呼吸与上下颠簸步态*
+
+#### 8. 地平线漫步跑道 (`ip_minimal_horizon`)
+> 角色脚踩金色细线漫步前进，脚下带微光阴影随动。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p ip_minimal_horizon -m avatar.png`
+![地平线漫步跑道效果](assets/presets/ip_minimal_horizon.jpg)
+
+#### 9. 声波浪尖冲浪跑道 (`ip_audio_surfer`)
+> 角色踏在跳动的音频波形浪尖上向前冲浪，动感十足。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p ip_audio_surfer -m avatar.png`
+![声波冲浪跑道效果](assets/presets/ip_audio_surfer.jpg)
+
+#### 10. 赛博霓虹跑道 (`ip_cyber_runner`)
+> 荧光双轨，角色脚底带有发光推进光效。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p ip_cyber_runner -m avatar.png`
+![赛博跑道效果](assets/presets/ip_cyber_runner.jpg)
+
+#### 11. 手账便签探头 (`ip_memo_peek`)
+> 角色趴在便签边缘好奇探头，极具陪伴感与萌趣感。  
+> 运行命令：`python scripts/pipeline.py -i input.mp4 -p ip_memo_peek -m avatar.png`
+![手账便签探头效果](assets/presets/ip_memo_peek.jpg)
+
+---
+
+## 🙏 致谢 (Acknowledgements)
+
+- [FFmpeg](https://ffmpeg.org/)：提供强大的音视频底层编解码与无损流式推流能力
+- [Pillow](https://python-pillow.org/)：高效健壮的图像图形处理库
+- [imageio-ffmpeg](https://github.com/imageio/imageio-ffmpeg)：提供跨平台零配置的自包含 FFmpeg 运行环境
 
 ---
 
 ## 📄 开源许可证
 
 本项目采用 [MIT License](LICENSE) 开源协议。
+Copyright (c) 2026 kekeradish
+
