@@ -12,8 +12,8 @@
 
 ## ✨ 核心特性
 
-- ⚡ **零环境配置门槛（Zero-Config）**：内置自包含 FFmpeg 引擎，依赖仅 **30MB**（已移除沉重的 PyTorch/Whisper），其他 Agent 或普通用户无需配置系统环境变量，3 秒完成安装！
-- 🧠 **Agent 多模态直通**：支持大语言模型直接多模态读取视频或文案并提取章节，通过 `-c` 参数秒级灌入，零外部模型推理耗时！
+- ⚡ **零环境配置门槛**：内置自包含 FFmpeg 引擎，依赖包仅 **30MB**，无需手动配置系统环境变量，3 秒极速安装。
+- 🧠 **Agent 多模态直通**：支持大模型直接多模态读取视频或文案并提取章节，通过 `-c` 参数秒级灌入，零等待直接渲染。
 - 🚀 **160+ FPS 极速条带渲染**：攻克 2K/4K 逐帧渲染缓慢痛点，采用局部条带内存加速算法，3 分钟 2K 视频仅需 30 秒导出！
 - 💎 **原生 32-bit RGBA 透明通道**：输出 Apple QuickTime RLE (`qtrle`) 格式，直接拖入剪映即可完美透明叠加，零色差、零遮挡。
 - 🤖 **智能情境推断 (Auto-Infer)**：输入视频自动识别横竖屏（9:16 自动切顶部防遮挡，16:9 自动切底部经典）；自动识别同级 `.srt` 字幕与 IP 角色素材。
@@ -32,10 +32,35 @@
 
 ---
 
-## 📦 安装与环境要求
+## 🤖 AI Agent 极速安装与使用指南
 
-### 1. 30MB 极轻极速安装（Zero-Config）
-> 💡 **无需手动配置 FFmpeg 系统变量，无需下载 2GB PyTorch**：本项目内置自适应探测器，依赖仅 30MB，秒装即用！
+本项目完全遵循 **Antigravity / Claude Code / Cursor / Cline / OpenHands 等通用 Agent Skill 规范**。
+
+### 1. 对你的 AI Agent 发送安装指令
+你可以直接在对话框中向任何支持技能系统的 Agent 发送以下一句话：
+
+> 💬 **“帮我安装这个视频进度条制作技能：`https://github.com/kekeradish/video-chapter-progressbar.git`，克隆到你的 skills 目录并安装依赖。”**
+
+### 2. Agent 自动化安装命令
+Agent 会在后台自动执行以下标准化流程：
+```bash
+# 1. 克隆到技能目录
+git clone https://github.com/kekeradish/video-chapter-progressbar.git
+
+# 2. 安装轻量依赖（仅 30MB，无需安装 PyTorch，自带自包含 FFmpeg）
+pip install -r video-chapter-progressbar/requirements.txt
+```
+
+### 3. Agent 调度范式
+安装完成后，Agent 能够直接多模态理解视频文案，并通过一行命令调度渲染：
+```bash
+# Agent 直传章节（0 秒推理等待，直接启动渲染）
+python scripts/pipeline.py -i "input.mp4" -c "00:00 开篇 01:20 核心实测 02:40 总结"
+```
+
+---
+
+## 📦 开发者本地安装
 
 ```bash
 git clone https://github.com/kekeradish/video-chapter-progressbar.git
@@ -47,34 +72,30 @@ pip install -r requirements.txt
 
 ## ⚡ 快速上手
 
-### 1. 极简用法：输入视频，全自动智能识别与生成
+### 1. 极简用法（智能全自动感知）
+无需记忆繁琐参数，系统自动识别横竖屏并匹配顶部/底部布局，自动探测同级字幕与 IP 角色：
 ```bash
-# 自动识别横竖屏决定顶部/底部布局，自动探测同级字幕与IP角色
 python scripts/pipeline.py -i "input_video.mp4"
 ```
 
-### 2. Agent 多模态直传章节（推荐，0 秒等待直接渲染）
+### 2. 指定章节文本（推荐，秒级极速渲染）
 ```bash
-python scripts/pipeline.py -i "input_video.mp4" -c "00:00 开篇 01:20 核心实测 02:40 总结"
+python scripts/pipeline.py -i "input_video.mp4" -c "00:00 痛点揭秘 01:15 功能拆解 02:30 实战演示 03:20 总结"
 ```
 
-### 3. 一键压制成品 MP4 视频
+### 3. 一键直接压制出带进度条的成品 MP4
 ```bash
-python scripts/pipeline.py -i "input_video.mp4" -c "00:00 简介 01:20 实测" --composite
+python scripts/pipeline.py -i "input_video.mp4" -c "00:00 开篇 01:20 实测" --composite
 ```
 
-### 3. IP 专属模式：带上你的自定义角色向前漫步
+### 4. IP 专属模式：带上你的自定义角色向前漫步
 ```bash
 python scripts/pipeline.py -i "input_video.mp4" -p "ip_minimal_horizon" -m "my_avatar.png"
 ```
 
-### 4. 外挂字幕或显式手工指定章节
+### 5. 外挂字幕文件加速模式
 ```bash
-# 读取外挂字幕
 python scripts/pipeline.py -i "input_video.mp4" -s "subtitle.srt"
-
-# 手工快速指定章节
-python scripts/pipeline.py -i "input_video.mp4" -c "00:00 简介 01:20 核心实测 02:40 总结"
 ```
 
 ---
@@ -91,13 +112,6 @@ python scripts/pipeline.py -i "input_video.mp4" -c "00:00 简介 01:20 核心实
 | `ip_minimal_horizon` | **IP 专属-地平线漫步** | 角色脚踩金色细线迈步前进，带自然颠簸步态 |
 | `ip_audio_surfer` | **IP 专属-声波浪尖冲浪** | 角色踩在跳动的音频波形浪尖上向前冲浪 |
 | `ip_cyber_runner` | **IP 专属-赛博霓虹跑道** | 青粉荧光双轨，角色脚底带发光喷气拖尾 |
-
----
-
-## 🤖 作为 AI Agent Skill 使用
-
-本项目完全遵循 **Antigravity / Claude / Cursor Agent Skill 规范**。  
-直接将本目录放置在你的 Skills 路径下，AI Agent 会自动识别 `SKILL.md` 并自主调度该能力。
 
 ---
 
