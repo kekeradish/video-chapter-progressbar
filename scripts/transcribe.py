@@ -4,6 +4,8 @@ import re
 import json
 import subprocess
 
+from ffmpeg_finder import get_ffmpeg_cmd, probe_video_meta
+
 def parse_time_str(time_str):
     """将 00:01:23.45 或 01:23 或 123 转化为浮点秒数"""
     parts = time_str.strip().replace(',', '.').split(':')
@@ -16,33 +18,14 @@ def parse_time_str(time_str):
     return 0.0
 
 def get_video_info(video_path):
-    """获取视频的分辨率、帧率与总时长"""
-    cmd = [
-        "ffprobe", "-v", "error",
-        "-show_entries", "format=duration:stream=width,height,r_frame_rate,codec_type",
-        "-of", "json", video_path
-    ]
-    res = subprocess.run(cmd, capture_output=True, text=True, check=True)
-    data = json.loads(res.stdout)
-    duration = float(data["format"]["duration"])
-    width, height, fps = 1920, 1080, 30.0
-    for s in data.get("streams", []):
-        if s.get("codec_type") == "video":
-            width = int(s.get("width", 1920))
-            height = int(s.get("height", 1080))
-            r_fps = s.get("r_frame_rate", "30/1")
-            if "/" in r_fps:
-                n, d = r_fps.split("/")
-                fps = float(n) / max(1.0, float(d))
-            else:
-                fps = float(r_fps)
-            break
-    return {"width": width, "height": height, "fps": fps, "duration": duration}
+    """获取视频的分辨率、帧率与总时长（自动适配系统与自包含 FFmpeg/FFprobe）"""
+    return probe_video_meta(video_path)
 
 def extract_audio_from_video(video_path, temp_audio_path):
     """使用 ffmpeg 从视频中抽取 16kHz 单声道音频"""
+    ffmpeg_exe = get_ffmpeg_cmd()
     cmd = [
-        "ffmpeg", "-y",
+        ffmpeg_exe, "-y",
         "-i", video_path,
         "-vn",
         "-acodec", "libmp3lame",

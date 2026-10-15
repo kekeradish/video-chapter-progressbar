@@ -12,6 +12,7 @@
 
 ## ✨ 核心特性
 
+- ⚡ **零环境配置门槛（Zero-Config）**：内置自动探测与自包含 FFmpeg 引擎，其他 Agent 或开发者无需手动配置系统环境变量，`pip install` 即可直接运行！
 - 🚀 **160+ FPS 极速条带渲染**：攻克 2K/4K 逐帧渲染缓慢痛点，采用局部条带内存加速算法，3 分钟 2K 视频仅需 30 秒导出！
 - 💎 **原生 32-bit RGBA 透明通道**：输出 Apple QuickTime RLE (`qtrle`) 格式，直接拖入剪映即可完美透明叠加，零色差、零遮挡。
 - 🤖 **AI 语义动态分段大脑**：双模输入支持——既能跑 Whisper 离线语音识别听出停顿转折，也能外挂 `.srt` 字幕；根据真实内容自适应切分，绝不写死模板。
@@ -33,13 +34,11 @@
 
 ## 📦 安装与环境要求
 
-### 1. 系统要求
-- **Python 3.10+**
-- **FFmpeg**（已加入系统 PATH）
+### 1. 零配置极速安装（Zero-Config）
+> 💡 **无需手动配置 FFmpeg 系统变量**：本项目内置自适应探测器，依赖库自动携带跨平台静态编译的独立 FFmpeg 二进制，所有 Agent 与普通用户均可无感开箱即用！
 
-### 2. 安装依赖
 ```bash
-git clone https://github.com/your-username/video-chapter-progressbar.git
+git clone https://github.com/kekeradish/video-chapter-progressbar.git
 cd video-chapter-progressbar
 pip install -r requirements.txt
 ```

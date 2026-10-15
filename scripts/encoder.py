@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import subprocess
 
+from ffmpeg_finder import get_ffmpeg_cmd
+
 def start_transparent_mov_encoder(width, height, fps, output_mov_path):
     """
     启动 FFmpeg 管道，编码生成原生带 32-bit RGBA Alpha 透明通道的 QuickTime MOV
     使用 qtrle 编码器（无损且兼容剪映、PR、FCP、达芬奇）
     """
+    ffmpeg_exe = get_ffmpeg_cmd()
     cmd = [
-        "ffmpeg", "-y",
+        ffmpeg_exe, "-y",
         "-f", "rawvideo",
         "-vcodec", "rawvideo",
         "-s", f"{width}x{height}",
@@ -26,8 +29,9 @@ def composite_to_final_video(video_src, mov_src, output_mp4_path):
     """
     将透明 MOV 图层无损叠加回原视频，音频 direct copy，利用硬件加速极速输出成片
     """
+    ffmpeg_exe = get_ffmpeg_cmd()
     cmd_nvenc = [
-        "ffmpeg", "-y",
+        ffmpeg_exe, "-y",
         "-i", video_src,
         "-i", mov_src,
         "-filter_complex", "[0:v][1:v]overlay=0:0[v]",
@@ -45,7 +49,7 @@ def composite_to_final_video(video_src, mov_src, output_mp4_path):
     
     # 失败降级为 CPU 编码
     cmd_cpu = [
-        "ffmpeg", "-y",
+        ffmpeg_exe, "-y",
         "-i", video_src,
         "-i", mov_src,
         "-filter_complex", "[0:v][1:v]overlay=0:0[v]",
